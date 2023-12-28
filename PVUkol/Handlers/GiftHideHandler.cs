@@ -4,6 +4,9 @@ using System.Diagnostics;
 
 namespace PVUkol.Handlers
 {
+    /// <summary>
+    /// Class made for solving the gifts problem
+    /// </summary>
     public class GiftHideHandler
     {
         private readonly UnresolvedStashes _unresolvedStashes;
@@ -33,6 +36,11 @@ namespace PVUkol.Handlers
 
         }
 
+        /// <summary>
+        /// Starting method for the solving algorithm, returns a timespan of elapsed time for completion.
+        /// </summary>
+        /// <param name="elapsed"></param>
+        /// <returns></returns>
         public Dictionary<string, Stash> Solve(out TimeSpan elapsed)
         {
             Stopwatch stopwatch = new Stopwatch();
@@ -58,6 +66,12 @@ namespace PVUkol.Handlers
             return _choosenStashes;
         }
 
+        /// <summary>
+        /// Returns true if if there is a column of stashes at specified index and returns them as a output parameter.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="column"></param>
+        /// <returns></returns>
         private bool TryGetUnsolvedColumnAtIndex(int index, out Dictionary<string, Stash> column)
         {
             if (index >= 0 && index < _rows.Count)
@@ -70,6 +84,10 @@ namespace PVUkol.Handlers
             return false;
         }
 
+        /// <summary>
+        /// Helper method for solving for non-duplicite values (non-duplicite stash IDs in a single column).
+        /// </summary>
+        /// <param name="nonDuplicites"></param>
         private void SolveNonDuplicite(Dictionary<string, Stash> nonDuplicites)
         {
             if (Debug)
@@ -87,6 +105,11 @@ namespace PVUkol.Handlers
             }
         }
 
+        /// <summary>
+        /// Helper method for solving for duplicite values in a column.
+        /// </summary>
+        /// <param name="duplicites"></param>
+        /// <exception cref="InvalidOperationException"></exception>
         private void SolveDuplicite(Dictionary<Stash, List<string>> duplicites)
         {
 
@@ -125,6 +148,10 @@ namespace PVUkol.Handlers
             }
         }
 
+        /// <summary>
+        /// Intial method for solving a column values.
+        /// </summary>
+        /// <param name="column"></param>
         private void SolveForColumn(Dictionary<string, Stash> column)
         {
             if (Debug) ConsoleExtension.WriteLine($"Solving for column at index {_curProcessingIndex}", ConsoleColor.Magenta);

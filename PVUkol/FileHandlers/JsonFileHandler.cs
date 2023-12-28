@@ -2,8 +2,16 @@
 
 namespace PVUkol.FileHandlers
 {
+    /// <summary>
+    /// JSON serialization/deserialization class
+    /// </summary>
     public static class JsonFileHandler
     {
+        /// <summary>
+        /// Serializes object to file at specified location
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="content"></param>
         public static void Serialize(string path, object content)
         {
             ArgumentException.ThrowIfNullOrEmpty(path, nameof(path));
@@ -19,6 +27,13 @@ namespace PVUkol.FileHandlers
             }
         }
 
+        /// <summary>
+        /// Deserializes a specified class to a object with properties from the specified file in argument
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        /// <exception cref="FileNotFoundException"></exception>
         public static T? Deserialize<T>(string path)
         {
             ArgumentException.ThrowIfNullOrEmpty(path, nameof(path));

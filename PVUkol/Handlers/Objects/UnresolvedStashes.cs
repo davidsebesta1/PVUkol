@@ -2,6 +2,9 @@
 
 namespace PVUkol.Handlers.Objects
 {
+    /// <summary>
+    /// A class containing information of a unsolved problem
+    /// </summary>
     public class UnresolvedStashes
     {
         public List<string> Friends { get; private set; }

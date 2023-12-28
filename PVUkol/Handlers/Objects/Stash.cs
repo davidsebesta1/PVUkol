@@ -3,11 +3,18 @@ using System.Text;
 
 namespace PVUkol.Handlers.Objects
 {
+    /// <summary>
+    /// Class containing information for a gift stash
+    /// </summary>
     [Serializable]
     public class Stash : IEquatable<Stash?>
     {
         public int ID { get; private set; }
         public string Name { get; private set; }
+
+        /// <summary>
+        /// Chances to find a gift at specified chance for indivial people
+        /// </summary>
         public Dictionary<string, int> FindChancesByName { get; private set; }
 
         [JsonConstructor]

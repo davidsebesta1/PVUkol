@@ -62,13 +62,19 @@ namespace PVUkol
             }
         }
 
+        /// <summary>
+        /// Initializes the solving of the problem
+        /// </summary>
+        /// <param name="stashes"></param>
+        /// <param name="debug"></param>
+        /// <returns></returns>
         private static ResolvedStashes Solve(UnresolvedStashes stashes, bool debug = false)
         {
             Console.WriteLine("File deserialized... running solving algorithm");
             GiftHideHandler handler = new GiftHideHandler(stashes, debug);
             Dictionary<string, Stash> solution = handler.Solve(out TimeSpan elapsed);
 
-            ConsoleExtension.WriteLine($"Found solution for your stashes in {EvualuateElapsed(elapsed)}: ", ConsoleColor.Green);
+            ConsoleExtension.WriteLine($"Found solution for your stashes in {EvaluateTimespan(elapsed)}: ", ConsoleColor.Green);
             foreach (var pair in solution)
             {
                 Console.Write(pair.Key + " - ");
@@ -79,7 +85,12 @@ namespace PVUkol
             return new ResolvedStashes(solution.ToDictionary(n => n.Key, m => m.Value.Name));
         }
 
-        private static string EvualuateElapsed(TimeSpan elapsed)
+        /// <summary>
+        /// Evaluates the time of the processing of the problem, resulting string will be rounded to two decimal numbers and appropriate unit is added
+        /// </summary>
+        /// <param name="elapsed"></param>
+        /// <returns></returns>
+        private static string EvaluateTimespan(TimeSpan elapsed)
         {
             if (elapsed.TotalSeconds >= 1d)
             {
@@ -89,6 +100,10 @@ namespace PVUkol
             return Math.Round(elapsed.TotalMilliseconds, 2).ToString() + "ms";
         }
 
+        /// <summary>
+        /// Starts the serialization process for solved problem
+        /// </summary>
+        /// <param name="solution"></param>
         private static void SerializeProcess(ResolvedStashes solution)
         {
             ConsoleExtension.WriteLine($"In which format you would like to save your solution?\n1. JSON\n2. XML\n3. YAML\n4. None\nPlease type a number if your selection: ", ConsoleColor.Yellow);
@@ -121,6 +136,13 @@ namespace PVUkol
             }
         }
 
+        /// <summary>
+        /// Starts the deserialization process for unsolved problem
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        /// <exception cref="FileNotFoundException"></exception>
+        /// <exception cref="FileLoadException"></exception>
         private static UnresolvedStashes? DeserializeStashFromFile(string path)
         {
             if (!File.Exists(path))

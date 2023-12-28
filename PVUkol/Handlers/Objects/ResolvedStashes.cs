@@ -3,6 +3,9 @@ using System.Xml.Serialization;
 
 namespace PVUkol.Handlers.Objects
 {
+    /// <summary>
+    /// A class containing information for solved problem
+    /// </summary>
     [Serializable]
     public class ResolvedStashes
     {
@@ -33,6 +36,9 @@ namespace PVUkol.Handlers.Objects
         }
     }
 
+    /// <summary>
+    /// Class made only for XML serialization since XML cannot serialize dictionary by default
+    /// </summary>
     [Serializable]
     public class StashItem
     {
